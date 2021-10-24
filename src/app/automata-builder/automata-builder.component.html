@@ -1,0 +1,69 @@
+<div class="row">
+    <form [formGroup]="automataForm" (ngSubmit)="onSave()">
+        <div class="row">
+            <div class="col-6" formArrayName="states">
+                <h3>Стани</h3>
+                <button class="btn btn-primary" type="button" (click)="addState()">Добавити</button>
+                <div *ngFor="let row of stateControls; let i = index" [formGroupName]="i" class="row">
+                    <div class="col-6">
+                        <input class="form-control" formControlName="state" type="text">
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-danger" type="button" (click)="removeState(i)">Видалити</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6" formArrayName="finalStates">
+                <h3>Фінальні стани</h3>
+                <button class="btn btn-primary" type="button" (click)="addFinalState()">Добавити</button>
+                <div *ngFor="let row of finalStateControls; let i = index" [formGroupName]="i" class="row">
+                    <div class="col-6">
+                        <input class="form-control" formControlName="state" type="text">
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-danger" type="button" (click)="removeFinalState(i)">Видалити</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <label for="init">Початковий стан</label>
+                <input id="init" class="form-control" formControlName="initialState" type="text">
+            </div>
+            <div class="col-6" formArrayName="symbols">
+                <h3>Алфавіт</h3>
+                <button class="btn btn-primary" type="button" (click)="addSymbol()">Добавити</button>
+                <div *ngFor="let row of symbolControls; let i = index" [formGroupName]="i" class="row">
+                    <div class="col-6">
+                        <input class="form-control" formControlName="symbol" type="text">
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-danger" type="button" (click)="removeSymbol(i)">Видалити</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>Переходи</h3>
+        <button class="btn btn-primary" type="button" (click)="addEdge()">Добавити</button>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">З стану</th>
+                    <th scope="col">До стану</th>
+                    <th scope="col">Літера</th>
+                </tr>
+            </thead>
+            <tbody formArrayName="edges">
+                <tr *ngFor="let edge of edgeControls; let i = index"
+                    [formGroupName]="i">
+                    <td scope="col"><input class="form-control" formControlName="from" type="text"></td>
+                    <td scope="col"><input class="form-control" formControlName="to" type="text"></td>
+                    <td scope="col"><input class="form-control" formControlName="label" type="text"></td>
+                    <td>
+                        <button class="btn btn-danger" type="button" (click)="removeEdge(i)">X</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit">Мінімізувати</button>
+    </form>
+</div>
